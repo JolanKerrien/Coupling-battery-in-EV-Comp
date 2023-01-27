@@ -69,7 +69,7 @@ def PlotCycle(idx):
         Mod = 'Heater'
     if idx>4:
         Mod = 'Chiller'
-    plt.title(f"P-h diagram for a {Mod} using R-1234yf at {T_amb[idx]-273.15}°C")
+    plt.title(f"P-h diagram for a {Mod} using R-1234yf at {T_amb[idx]-273.15}°C (Battery coupled)")
     plot.show();
 
 
@@ -181,11 +181,11 @@ def Adjustm_glyc(eps = 1e-2,max_iter=1000,m_glyc_min = 0.01,m_glyc_max = 2, pinc
             m_glyc.append(bisect_m_glycCond(idx+5,eps,max_iter, m_glyc_min, m_glyc_max,pinch))
     return np.array(m_glyc)
 
-def Advanced(): #Used to import data in the main file Project.py
+def Advanced():
     return COP, W,Q_cond,Q_evap, m_ref, np.concatenate((np.ones(4)*m_glyc,m_glycChiller))
 
 #######################################################################################
-##############################   Advanced requirements    #############################
+#############################   Adanced requirements    ###############################
 #######################################################################################
 # Point 3
 T3 = np.concatenate((T_blown[:4],np.ones(3)*Tout_bat+DeltaT_bat))+pinch #K
@@ -232,7 +232,7 @@ Q_sens = m_ref*(H_sat-H3_4)*1e-3 #kW
 
 #Adjust m_glyc for Chiller
 m_glycChiller = Adjustm_glyc()
-Tbat_Condout = Tout_bat*np.ones(2)+Q_cond[5:]*1e3/m_glyc/Cp_glyc
+Tbat_Condout = Tout_bat*np.ones(2)+Q_cond[5:]*1e3/m_glycChiller/Cp_glyc
 #Plot Graph vs Tamb
 # plt.plot(T_amb-273.15,np.insert(COP,4,0),'.') #Vapor Compression cycle off
 # plt.axvline(x=20,color='gray',linestyle='--')
@@ -252,4 +252,4 @@ Tbat_Condout = Tout_bat*np.ones(2)+Q_cond[5:]*1e3/m_glyc/Cp_glyc
 ###############################   Composite curve     #################################
 #######################################################################################
 
-# Composite(5) #Plot whatever you want: 0,1,2,3 is heating mod and 5,6 chiller mod
+Composite(5) #Plot whatever you want: 0,1,2,3 is heating mod and 5,6 chiller mod
