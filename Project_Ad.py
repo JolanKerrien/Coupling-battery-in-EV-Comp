@@ -181,11 +181,11 @@ def Adjustm_glyc(eps = 1e-2,max_iter=1000,m_glyc_min = 0.01,m_glyc_max = 2, pinc
             m_glyc.append(bisect_m_glycCond(idx+5,eps,max_iter, m_glyc_min, m_glyc_max,pinch))
     return np.array(m_glyc)
 
-def Advanced():
+def Advanced(): #Used to import data in the main file Project.py
     return COP, W,Q_cond,Q_evap, m_ref, np.concatenate((np.ones(4)*m_glyc,m_glycChiller))
 
 #######################################################################################
-###############################   Basic requirements    ###############################
+##############################   Advanced requirements    #############################
 #######################################################################################
 # Point 3
 T3 = np.concatenate((T_blown[:4],np.ones(3)*Tout_bat+DeltaT_bat))+pinch #K
@@ -253,10 +253,3 @@ Tbat_Condout = Tout_bat*np.ones(2)+Q_cond[5:]*1e3/m_glyc/Cp_glyc
 #######################################################################################
 
 # Composite(5) #Plot whatever you want: 0,1,2,3 is heating mod and 5,6 chiller mod
-
-#######################################################################################
-##########################    Heater mod [-20,-10,0,10] °C     ########################
-#######################################################################################
-''' In heater mode the battery heat up a coolant (MPG-50%) that will serve to heat the
-evaporator side.
-'''
