@@ -185,7 +185,7 @@ def Advanced():
     return COP, W,Q_cond,Q_evap, m_ref, np.concatenate((np.ones(4)*m_glyc,m_glycChiller))
 
 #######################################################################################
-#############################   Adanced requirements    ###############################
+#############################   Advanced requirements    ###############################
 #######################################################################################
 # Point 3
 T3 = np.concatenate((T_blown[:4],np.ones(3)*Tout_bat+DeltaT_bat))+pinch #K
